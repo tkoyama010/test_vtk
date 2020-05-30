@@ -1,5 +1,6 @@
 FROM getfemdoc/getfem:latest
 ENV DEBIAN_FRONTEND noninteractive
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN source /venv/bin/activate
 
 # install the notebook package
