@@ -1,10 +1,10 @@
-FROM getfemdoc/getfem:stable
+FROM getfemdoc/getfem:latest
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt update && apt -y install python3-pip
+RUN source /venv/bin/activate
 
 # install the notebook package
-RUN pip3 install --no-cache --upgrade pip && \
-    pip3 install --no-cache notebook
+RUN pip install --no-cache --upgrade pip && \
+    pip install --no-cache notebook
 
 # create user with a home directory
 ARG NB_USER
@@ -19,6 +19,6 @@ RUN adduser --disabled-password \
 WORKDIR ${HOME}
 USER root
 COPY . ${HOME}
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 RUN chown -R ${NB_USER} ${HOME}
 USER ${USER}
