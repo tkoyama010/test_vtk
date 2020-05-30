@@ -1,11 +1,10 @@
 FROM getfemdoc/getfem:latest
 ENV DEBIAN_FRONTEND noninteractive
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-RUN source /venv/bin/activate
 
 # install the notebook package
-RUN pip3 install --no-cache --upgrade pip && \
-    pip3 install --no-cache notebook
+RUN /venv/bin/pip3 install --no-cache --upgrade pip && \
+    /venv/bin/pip3 install --no-cache notebook
 
 # create user with a home directory
 ARG NB_USER
@@ -13,7 +12,7 @@ ARG NB_UID
 ENV USER ${NB_USER}
 ENV HOME /home/${NB_USER}
 
-RUN adduser --disabled-password \
+RUN . /venv/bin/activate && adduser --disabled-password \
     --gecos "Default user" \
     --uid ${NB_UID} \
     ${NB_USER}
