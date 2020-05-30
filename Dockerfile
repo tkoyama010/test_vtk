@@ -19,6 +19,5 @@ RUN adduser --disabled-password \
 WORKDIR ${HOME}
 USER root
 COPY . ${HOME}
-RUN pip install -r requirements.txt
 RUN chown -R ${NB_USER} ${HOME}
 USER ${USER}
